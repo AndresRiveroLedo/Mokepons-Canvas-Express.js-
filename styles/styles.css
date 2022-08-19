@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Mouse+Memoirs&family=Poppins:wght@300&display=swap');
+
+:root{
+    --primary-color: #3330E4;
+    --secondary-color: #F637EC;
+    --third-color: #FBB454;
+    --fourth-color: #FAEA48;
+    --fifth-color: #FFFFFF;
+    --sixth-color: #EE81B3;
+}
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    font-family: 'Fredoka One', cursive;
+    font-size: 62.5%;
+}

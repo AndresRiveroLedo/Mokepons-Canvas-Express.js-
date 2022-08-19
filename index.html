@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <script src="./js/js.js"></script>
+</head>
+<body>
+    <h1 id="title">Pokemon</h1>
+
+    <section id="selection-pets--player">
+        <h2 class="subtitle">Select a pet</h2>
+       
+        <div class="card-pets">
+            
+            <input class="input-pets" type="radio" name="pet" id="capipepo">
+            <label class="card-pet" for="capipepo">
+                <p>Capipepo</p>
+                <img src="./assets/mokepons_mokepon_capipepo_attack.png" alt=""> 
+             </label>
+             
+            
+             <input class="input-pets" type="radio" name="pet" id="hipodoge">
+             <label class="card-pet" for="hipodoge">
+                 <p>Hipodoge</p> 
+                 <img src="./assets/mokepons_mokepon_hipodoge_attack.png" alt="">
+             </label>
+             
+             
+             <input  class="input-pets" type="radio"  name="pet" id="ratigueya">
+             <label  class="card-pet" for="ratigueya">
+                 <p>Ratigueya</p> 
+                 <img src="./assets/mokepons_mokepon_ratigueya_attack.png" alt="">
+             </label>
+             
+        </div>
+
+        <button class="btn" id="btn-selection-pet">Selection</button>
+    </section>
+
+    <section id="selection-attacks--player">
+        <h2 class="subtitle" id="subtitle-attack" >Choose your attack</h2>
+        <div class="card-btn-attacks">
+            <button class="btn-attack" id="btn-attack--fire">Fire 🔥</button>
+            <button class="btn-attack" id="btn-attack--water">Water 💧</button>
+            <button class="btn-attack" id="btn-attack--earth">earth 🏔️</button>
+        </div>
+        <div id="messages">
+            <p id="message">Good Look!</p>
+        </div>
+    </section>
+    
+    <section id="card-attacks">
+        <div class="card-player">
+            <p id="card-life--player">3</p>
+            <p class="card-name--player"></p>
+            <div id="card-attacks--player"></div>
+        </div>
+        <div class="card-computer">
+            <p id="card-life--computer">3</p>
+            <p class="card-name--computer"></p>
+            <div id="card-attacks--computer"></div>
+        </div>
+    </section>
+
+    <section id="card-restart">
+        <button class="btn" id="btn-restart">Restart</button>
+    </section>
+</body>
+</html>
