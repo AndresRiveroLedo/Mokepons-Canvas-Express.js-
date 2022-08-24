@@ -19,3 +19,175 @@ html{
     font-family: 'Fredoka One', cursive;
     font-size: 62.5%;
 }
+
+body{
+    width:100%;
+    background-color: var(--primary-color);
+}
+
+#title{
+    font-size: 6rem;
+    color: var(--fifth-color);
+    text-align: center;
+    margin: 20px 0;
+}
+
+/*Section Btn Pets*/
+#selection-pets--player{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.subtitle{
+    font-size: 3.5rem;
+    color: var(--fifth-color);
+}
+
+#selection-pets--player .card-pets{
+    display: flex;
+    justify-content: center;
+    color: var(--fifth-color);
+    font-size: 2rem;
+    gap: 30px;
+    margin: 20px 0;
+}
+
+.card-pets .input-pets{
+    display: none;
+}
+
+.card-pets .card-pet{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--secondary-color);
+    border-radius: 15px;
+    width: 160px;
+    height: 110px;
+}
+
+.card-pets .card-pet p{
+    margin-left: 10px;
+
+}
+
+.card-pets .card-pet img{
+    width: 50px;
+    height: 50px;
+}
+
+.card-pets .input-pets:checked + label{
+    background-color: var(--sixth-color);
+}
+
+.card-pets .input-pets:hover + label{
+    cursor: pointer;
+}
+.btn{
+    background-color: transparent;
+    border-color: var(--fifth-color);
+    color: var(--fifth-color);
+    border-radius: 15px;
+    font-family: 'Fredoka One', cursive;
+    width: 160px;
+    height: 60px;
+    font-size: 2rem;
+}
+
+.btn:hover{
+    cursor: pointer;
+    background-color: var(--sixth-color);
+}
+
+/*Section Canvas*/
+#section-canvas{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+
+#section-canvas button{
+    margin: 10px  0;
+}
+
+#card-buttons{
+    display: flex;
+    gap: 20px;
+}
+
+/*Section btn attacks*/
+#selection-attacks--player{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px  0;
+}
+
+#selection-attacks--player .card-btn-attacks{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.card-btn-attacks .btn-attack{
+    background-color: var(--secondary-color);
+    border: none;
+    font-family: 'Fredoka One', cursive;
+    color: var(--fifth-color);
+    border-radius: 20px;
+    width: 140px;
+    height: 60px;
+    font-size: 2.5rem;
+}
+
+.card-btn-attacks .btn-attack:hover{
+    cursor: pointer;
+    background-color: var(--sixth-color);
+}
+
+#message{
+    color: var(--fifth-color);
+    font-size: 3rem;
+    background-color: var(--third-color);
+    width: 200px;
+    height: 60px;
+    padding-top: 10px;
+    text-align: center;
+    border-radius: 15px;
+}
+
+/*Section info attacks*/
+#card-attacks{
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+    justify-content: center;
+    text-align: center;
+    color: var(--fifth-color);
+    font-size: 2rem;
+    gap: 20px;
+}
+
+.card-player p, .card-computer p, .card-results p{
+    margin: 10px 0;
+}
+
+#card-attacks--computer, #card-attacks--player, #card-results--attacks{
+    margin: 10px 0;
+}
+
+/*Section btn restart*/
+#card-restart{
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 550px){
+    #selection-pets--player .card-pets, #selection-attacks--player .card-btn-attacks {
+        flex-direction: column;
+    }
+}
+
+
