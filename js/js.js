@@ -31,27 +31,66 @@ let inputCapipepo
 let inputHipodoge
 let inputRatigueya
 let namePlayer
-let btnsAttacks
+let btnsAttacks = []
+let objectPlayer
 let lifePlayer = 0
 let lifeEnemy = 0
 
+/*Variables of Canvas*/
+const sectionCanvas = document.getElementById('section-canvas')
+const canvas = document.getElementById('canvas')
+let interval
+let mapCanvas = canvas.getContext('2d')
+let canvasBackground = new Image()
+canvasBackground.src = './assets/mokemap.png'
+let heightWeAreLookingFor
+let widthCanvas = window.innerHeight - 20
+const maxWidth = 350
 
+if(widthCanvas > maxWidth){
+    widthCanvas = 350
+}
+
+heightWeAreLookingFor = 350 * 600 / 800
+
+canvas.width = widthCanvas
+canvas.height = heightWeAreLookingFor
 
 /**Class */
 class Mokepon{
-    constructor(name, life, image){
+    constructor(name, image, life, imageCanvas){
         this.name = name
-        this.life = life
         this.image = image
+        this.life = life
+        this.width = 40
+        this.height = 40
+        this.imageCanvas = new Image()
+        this.imageCanvas.src = imageCanvas
         this.attacks = []
+        this.speedX = 0
+        this.speedY = 0
+        this.x = numberRandom(0 , canvas.width - this.width)
+        this.y = numberRandom(0, canvas.height - this.height)
+    }
+
+    drawMokepon(){
+        mapCanvas.drawImage(
+            this.imageCanvas,
+            this.x,
+            this.y, 
+            this.width,
+            this.height
+        )
     }
 }
 
-const capipepo = new Mokepon('Capipepo', 5, './assets/mokepons_mokepon_capipepo_attack.png')
+/*Players */
+const capipepo = new Mokepon('Capipepo', './assets/mokepons_mokepon_capipepo_attack.png', 5, './assets/capipepo.png')
 
-const hipodoge = new Mokepon('Hipodoge', 5, './assets/mokepons_mokepon_hipodoge_attack.png')
+const hipodoge = new Mokepon('Hipodoge', './assets/mokepons_mokepon_hipodoge_attack.png', 5, './assets/hipodoge.png')
 
-const ratigueya = new Mokepon('Ratigueya', 5, './assets/mokepons_mokepon_ratigueya_attack.png')
+const ratigueya = new Mokepon('Ratigueya', './assets/mokepons_mokepon_ratigueya_attack.png', 5, './assets/ratigueya.png')
+
 
 capipepo.attacks.push(
     {name: "🏔️", id: "btn-earth"},
@@ -79,10 +118,42 @@ ratigueya.attacks.push(
 
 arrayMokepons.push(capipepo, hipodoge, ratigueya)
 
+/*Enemy */
+const capipepoEnemy = new Mokepon('Capipepo', './assets/mokepons_mokepon_capipepo_attack.png', 5, './assets/capipepo.png')
+
+const hipodogeEnemy = new Mokepon('Hipodoge', './assets/mokepons_mokepon_hipodoge_attack.png', 5, './assets/hipodoge.png')
+
+const ratigueyaEnemy = new Mokepon('Ratigueya', './assets/mokepons_mokepon_ratigueya_attack.png', 5, './assets/ratigueya.png')
+
+
+capipepoEnemy.attacks.push(
+    {name: "🏔️", id: "btn-earth"},
+    {name: "🏔️", id: "btn-earth"},
+    {name: "🏔️", id: "btn-earth"},
+    {name: "🔥", id: "btn-fire"},
+    {name: "💧", id: "btn-water"}
+)
+
+hipodogeEnemy.attacks.push(
+    {name: '💧', id: "btn-water"},
+    {name: '💧', id: "btn-water"},
+    {name: '💧', id: "btn-water"},
+    {name: '🔥', id: "btn-fire"},
+    {name: '🏔️', id: 'btn-earth'}
+)
+
+ratigueyaEnemy.attacks.push(
+    {name: '🔥', id: "btn-fire"},
+    {name: '🔥', id: "btn-fire"},
+    {name: '🔥', id: 'btn-fire'},
+    {name: '💧', id: 'btn-water'},
+    {name: '🏔️', id: 'btn-earth'}
+)
 
 /*Variables*/
 function loadGame(){
     sectionSelectionAttacksPlayer.style.display = 'none'
+    sectionCanvas.style.display = 'none'
     sectionCardAttacks.style.display = 'none'
     sectionCardRestart.style.display = 'none'
 
@@ -107,8 +178,8 @@ function loadGame(){
 function addSectionAttacks(){
 
     sectionSelectionPetsPlayer.style.display = 'none'
-    sectionSelectionAttacksPlayer.style.display  = 'flex'
-    sectionCardAttacks.style.display = 'flex'
+    sectionSelectionAttacksPlayer.style.display  = 'none'
+    sectionCardAttacks.style.display = 'none'
 
     if(inputCapipepo.checked){
         namePlayer = inputCapipepo.id
@@ -125,9 +196,13 @@ function addSectionAttacks(){
     }
 
    selectedAttackPetPlayer(namePlayer)
-   selectedAttackPetEnemy();
+   sectionCanvas.style.display = 'flex'
+   initCanvas()
+  //selectedAttackPetEnemy();
     
 }
+
+
 
 function selectedAttackPetPlayer(namePlayer){
     let attacks = []
@@ -151,6 +226,7 @@ function showBtnAttacks(attacks){
 
     btnsAttacks = document.querySelectorAll('.btn-attack')
 }
+
 
 function selectedAttackPetEnemy(){
     let randomEnemy = numberRandom(0, arrayMokepons.length - 1)
@@ -277,6 +353,119 @@ function checkVictory(){
     btnRestart.addEventListener('click', reloadGame)
 }
 
+/*Zone Canvas */
+function initCanvas(){
+    objectPlayer = getObjectMokepon(namePlayer)
+
+    interval = setInterval(drawCanvas, 50)
+
+    window.addEventListener('keydown', pressAKey)
+    window.addEventListener('keyup', stopMoviment)
+
+
+}
+
+function drawCanvas(){
+    objectPlayer.x = objectPlayer.x + objectPlayer.speedX
+    objectPlayer.y = objectPlayer.y + objectPlayer.speedY
+    mapCanvas.clearRect(0, 0, canvas.width, canvas.height)
+    mapCanvas.drawImage(
+        canvasBackground,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    )
+    objectPlayer.drawMokepon()
+    ratigueyaEnemy.drawMokepon()
+    capipepoEnemy.drawMokepon()
+    hipodogeEnemy.drawMokepon()
+
+    if(objectPlayer.speedX !== 0 || objectPlayer.speedY !== 0){
+        checkCollision(ratigueyaEnemy)
+        checkCollision(capipepoEnemy)
+        checkCollision(hipodogeEnemy)
+    }
+
+}
+
+function pressAKey(event){
+    switch(event.key){
+        case 'ArrowUp':
+            moveUp()
+            break
+        case 'ArrowDown':
+            moveDown()
+            break
+        case 'ArrowLeft':
+            moveLeft()
+            break
+        case 'ArrowRight':
+            moveRight()
+            break
+        default:
+            break
+    }
+}
+
+function moveUp(){
+    objectPlayer.speedY = -5
+}
+
+function moveDown(){
+    objectPlayer.speedY = 5
+}
+
+function moveLeft(){
+    objectPlayer.speedX = -5 
+}
+
+function moveRight(){
+    objectPlayer.speedX = 5
+}
+
+function stopMoviment(){
+    objectPlayer.speedX = 0
+    objectPlayer.speedY = 0
+}
+
+function getObjectMokepon(namePlayer){
+
+    for(let i = 0; i < arrayMokepons.length; i++){
+        if(namePlayer == arrayMokepons[i].name){
+            return arrayMokepons[i]
+        }
+    }
+}
+
+function checkCollision(objectEnemy){
+    const upEnemy = objectEnemy.y
+    const downEnemy = objectEnemy.y + objectEnemy.height
+    const rightEnemy = objectEnemy.x + objectEnemy.width
+    const leftEnemy = objectEnemy.x
+
+    const upPlayer = objectPlayer.y
+    const downPlayer = objectPlayer.y + objectPlayer.height
+    const rightPlayer = objectPlayer.x + objectPlayer.width
+    const leftPlayer = objectPlayer.x 
+    
+    if(
+        downPlayer < upEnemy ||
+        upPlayer > downEnemy ||
+        rightPlayer < leftEnemy ||
+        leftPlayer > rightEnemy
+    ){
+        return
+    }
+
+    stopMoviment()
+    clearInterval(interval)
+    console.log('collision')
+    sectionCanvas.style.display = 'none'
+    sectionSelectionAttacksPlayer.style.display = 'flex'
+    sectionCardAttacks.style.display = 'flex'
+    selectedAttackPetEnemy();
+}
 
 
 function numberRandom(min, max){

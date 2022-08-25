@@ -26,12 +26,12 @@
         <h2 class="subtitle">Tour the map</h2>
 
         <canvas id="canvas"></canvas>
-        
-        <button class="btn">Up</button>
+
+        <button onmouseup="stopMoviment()" onmousedown="moveUp()" class="btn">Up</button>
         <div id="card-buttons">
-            <button class="btn" >Left</button>
-            <button class="btn" >Down</button>
-            <button class="btn">Right</button>
+            <button onmouseup="stopMoviment()" onmousedown="moveLeft()" class="btn" >Left</button>
+            <button class="btn" onmouseup="stopMoviment()" onmousedown="moveDown()">Down</button>
+            <button class="btn" onmouseup="stopMoviment()" onmousedown="moveRight()">Right</button>
         </div>
     </section>
 
